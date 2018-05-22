@@ -1,0 +1,61 @@
+﻿<Window x:Class="exam.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:exam"
+        mc:Ignorable="d"
+        Title="STO - SERVICE" Height="561.217" Width="755.051" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ComboBox x:Name="selCustomers" HorizontalAlignment="Left" Margin="2,63,0,0" VerticalAlignment="Top" Width="241" Height="22" Grid.Column="0" SelectionChanged="selCustomers_SelectionChanged"/>
+        <DatePicker x:Name="selDate" HorizontalAlignment="Left" Margin="2,10,0,0" VerticalAlignment="Top" Height="27" Width="241" Grid.Column="0"/>
+        <ComboBox x:Name="selCar" HorizontalAlignment="Left" Margin="2,113,0,0" VerticalAlignment="Top" Width="241" Grid.Column="0" Height="22" SelectionChanged="selCar_SelectionChanged"/>
+        <Label x:Name="strCustomer" Content="Клиент:" HorizontalAlignment="Left" Margin="2,37,0,0" VerticalAlignment="Top" Width="54" Grid.Column="0" Height="26"/>
+        <Label x:Name="strCar" Content="Авто заказчика:" HorizontalAlignment="Left" Margin="2,87,0,0" VerticalAlignment="Top" Grid.Column="0" Height="26" Width="100"/>
+
+        <GridSplitter ShowsPreview="False" Width="3" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="0,0,0,0" Grid.Column="1" />
+
+        <DockPanel Grid.Column="2">
+            <ListView DockPanel.Dock="Bottom" x:Name="listOrders" Grid.Column="2" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" SelectionChanged="listOrders_SelectionChanged">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Дата заказа" DisplayMemberBinding="{Binding Path=OrderDate}"></GridViewColumn>
+                        <GridViewColumn Header="№ Заказа" DisplayMemberBinding="{Binding Path=OrderId}"></GridViewColumn>
+                        <GridViewColumn Header="Клиент" DisplayMemberBinding="{Binding Path=OrderCustomer, StringFormat={}{0:C}}"></GridViewColumn>
+                        <GridViewColumn Header="Телефон" DisplayMemberBinding="{Binding Path=OrderCustomerPhone, StringFormat={}{0:C}}"></GridViewColumn>
+                        <GridViewColumn Header="Марка авто" DisplayMemberBinding="{Binding Path=OrderAuto, StringFormat={}{0:C}}"></GridViewColumn>
+                        <GridViewColumn Header="№ авто" DisplayMemberBinding="{Binding Path=OrderAutoNumber, StringFormat={}{0:C}}"></GridViewColumn>
+                        <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Path=OrderSuma, StringFormat={}{0:C}}">
+                            <!--GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Description}" TextWrapping="Wrap" Margin="5" Foreground="Green"></TextBlock>
+                                </DataTemplate>
+                            </-->
+                        </GridViewColumn>
+                        
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </DockPanel>
+        <GroupBox Background="Azure" HorizontalAlignment="Left" Margin="2,140,0,0" VerticalAlignment="Top" Width="241" Height="168">
+            <GroupBox.Header>
+                <Button x:Name="btnAdd" Content="Добавить" Background="Beige" Click="btnAdd_Click"/>
+            </GroupBox.Header>
+            <StackPanel>
+                <RadioButton GroupName="selectedItem" x:Name="rbtnOrder" IsChecked="True" Checked="rbChecked" Margin="3">Заказ на обслуживание</RadioButton>
+                <RadioButton GroupName="selectedItem" x:Name="rbtnCustomer" Checked="rbChecked" Margin="3">Новый клиент</RadioButton>
+                <RadioButton GroupName="selectedItem" x:Name="rbtnCar" Checked="rbChecked" Margin="3">Новый автомобиль</RadioButton>
+                <RadioButton GroupName="selectedItem" x:Name="rbtnCarModel" Checked="rbChecked" Margin="3">Новая модель автомобиля</RadioButton>
+                <RadioButton GroupName="selectedItem" x:Name="rbtnGoodsType" Checked="rbChecked" Margin="3">Новый тип (товар/услуга)</RadioButton>
+                <RadioButton GroupName="selectedItem" x:Name="rbtnGoods" Checked="rbChecked" Margin="3">Новый товар/услуга</RadioButton>
+            </StackPanel>
+        </GroupBox>
+        <Image x:Name="image" Source="source\Auto_garage.jpg" HorizontalAlignment="Left" Height="222" Margin="2,308,0,0" VerticalAlignment="Top" Width="238"/>
+    </Grid>
+</Window>
